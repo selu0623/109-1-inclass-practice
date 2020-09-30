@@ -1,0 +1,51 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "selu"
+date: "2020-09-30"
+output: output_format
+params:
+  id: "410973065"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+3 -> b
+2 -> a
+4 -> g
+```
+
+```{r}
+a
+```
+```{r}
+a+3*4
+```
+```{r}
+my_108_total_credits <- 15
+_108_total_credits <- 15
+108_total_credits <- 15
+_my_108_total_credits <- 15
+my.108.total_credits <- 15
+.108.total_credits <- 15 # 隱藏變數
+.my.108.total_credits <- 15
+我的108學年總學分數 <- 15
+`我的108學年總學分數` <- 15 # 特殊名稱處理，`不是名稱的一部份
+`.108.total_credits` <- 15
+```
+
+```{r}
+my_108_total_credits <- 15
+```
+
+```{r}
+我的年紀 <- 19
+my_age <- 我的年紀
+sum(我的年紀+my_108_total_credits)
+```
+
+
