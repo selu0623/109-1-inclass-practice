@@ -1,0 +1,77 @@
+---
+title: "課堂練習模版"
+author: "selu"
+date: "2020-10-07"
+output: output_format
+params:
+  id: "410973065"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+myName <- "Mary"
+length(myName)
+
+```
+
+```{r}
+num1 <- 5
+vNum1 <- c(2,5)
+vNum2 <- c(2, num1)
+```
+
+```{r}
+heightsOftheEntireClassroom <- c()
+```
+
+```{r}
+heightOfAStudentComingInsideTheClassroom <- sample(165:200,1)
+```
+
+```{r}
+heightsOftheEntireClassroom <- c(heightsOftheEntireClassroom,heightOfAStudentComingInsideTheClassroom)
+```
+
+```{r}
+num2 <- 5L
+num3 <- 5
+```
+
+```{r}
+object.size(num3)
+object.size(num2)
+```
+```{r}
+char1<-"你好"
+char2<-'你好'
+char1Vector<-c("你好","How are you?")
+```
+
+```{r}
+class(char1)
+class(char1Vector)
+```
+```{r}
+dialogue <- c('小明說："明天不用上課。"',
+               '小花說："真的嗎？"')
+
+dialogue # 顯示原始值的內容（含輸入時的引號）
+cat(dialogue, sep="\n") # 顯示給人類看（含存出來）的值，sep="\n", 不同元素換行陳列。
+writeLines(dialogue, "conversation.txt") # cat顯示的正是存出來樣貌。
+```
+```{r}
+context1 <- "老師說換行要寫\n,"
+cat(context1)
+```
+
+```{r}
+context2 <- c('"老師說換行要寫\\n,"')# 請依下列情境輸入
+cat(context2)
+```
+
+
