@@ -1,0 +1,90 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "selu"
+date: "2020-10-19"
+output: output_format
+params:
+  id: "410973065"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+library(lubridate)
+```
+
+```{r}
+tpeTime <- ymd_hms("2020-03-18 13:52:40",
+        tz="Asia/Taipei")
+pgTime <- mdy_hms("Mar.18, 2020, 05:52:40",
+                  tz="Europe/Lisbon")
+```
+```{r}
+tpeTimeVector <- 
+  ymd_hms(
+    c("2020-03-18 13:52:40",
+      "2020-03-11 03:12:40"),
+    tz="Asia/Taipei"
+    )
+```
+```{r}
+typeof(tpeTime)
+class(tpeTime)
+```
+```{r}
+tpeTime
+print(tpeTime)
+cat(tpeTime)
+```
+```{r}
+as.character(tpeTime)
+```
+```{r}
+print(as.character(tpeTime))
+cat(as.character(tpeTime))
+```
+```{r}
+tpeTime2 <- ymd_hms("2010-03-18 16:52:40",
+        tz="Asia/Taipei")
+pgTime2 <- mdy_hms("Mar.01, 2020, 03:52:40",
+                  tz="Europe/Lisbon")
+```
+
+```{r}
+with_tz(tpeTime2, tzone="America/New_York")
+```
+```{r}
+tpeTime3 <- 
+  with_tz(tpeTime2, tzone="America/New_York")
+pgTime3 <- 
+  with_tz(pgTime2, tzone="America/New_York")
+```
+```{r}
+print(tpeTime3)
+print(pgTime3)
+```
+```{r}
+# Pass data as it is (Not good), not a character
+tpeTime
+
+# Method 1: convert to UTC and pass as character
+tpeTime_utc <- with_tz(tpeTime, tzone="UTC")
+as.character(tpeTime_utc)
+```
+
+
+```{r}
+# Method 2: pass as a character that fits ISO8601 date time description standard with tz onset specified
+tpeTime_iso8601 <- format_ISO8601(tpeTime, usetz=T)
+tpeTime_iso8601
+```
+
+```{r}
+tpeTime <- ymd_hms(tpeTime_iso8601)
+tpeTime
+```
+
