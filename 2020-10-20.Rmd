@@ -1,0 +1,94 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "selu"
+date: "2020-10-20"
+output: output_format
+params:
+  id: "410973065"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+library(lubridate)
+
+# Date/Time class
+purchasingTime <- 
+  ymd_hms("2020-03-31T13:40:55Z")
+
+# character
+location <- "一芳"
+item <- "水果茶"
+
+# numeric
+quantity <- 2
+
+mingsPurchase <-
+  list(
+    purchasingTime, 
+    location, 
+    quantity, 
+    item
+  )
+print(mingsPurchase)
+```
+```{r}
+exampleList <- list(c(1,2,3),"Mary",TRUE)
+print(exampleList)
+```
+```{r}
+hw1 <- list(
+  date=ymd("2020-10-21"),
+  grade=10
+)
+exam1 <- list(
+  date=ymd("2020-10-28"),
+  grade=50
+)
+student1 <-
+  list(
+    name = "Martin",
+    id = "007",
+    gmail = "mt@gm.ntpu.edu.tw",
+    googleClassroom =
+      list(
+        displayName = "MT L"
+      ),
+    github =
+      list(
+        username = "tpemartin",
+        repoUrl = "https://github.com/tpemartin/109-1-inclass-practice"
+      ),
+    homeworks = list(
+      hw1
+    ),
+    exams = list(
+      exam1
+    ),
+    list()
+  )
+
+str(student1, 2)
+```
+```{r}
+categoryTemplate = 
+  list(categoryName=character(),items = list())
+saladCAt = list(categoryName="沙拉套餐",
+                items=list(list("凱薩沙拉",200),list("千島沙拉",150),list("水果沙拉",100)))
+print(saladCAt)
+
+```
+```{r}
+object1 <- c(2,5)
+object2 <- ymd_hms(
+  c("2015-03-22 12:28:42","2017-12-22 15:33:48"),
+  tz="Asia/Taipei"
+)
+object3 <- list(2, FALSE, c("a","b","c"))
+save(object1, object2, object3, file="threeObjects.Rda")
+```
+
