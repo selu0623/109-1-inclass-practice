@@ -1,0 +1,197 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "selu"
+date: "2020-11-24"
+output: output_format
+params:
+  id: "410973065"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+example <- list(
+  name=c("小明","小花","小新","美美"),
+  height=c(175,166,170,160),
+  weight=c(77,NA,60,43),
+  birthday=lubridate::ymd(c("1998-03-11","1999-12-22","1995-08-22","2001-10-10")),
+  hobby=c("美食 旅遊","旅遊 時尚","3C 美食","音樂 旅遊"),
+  residence=c("Taipei","New Taipei","Taichung","Kaohsiung"),
+  allowance=factor(c("0-1000","1001-2000","2000+","1001-2000")),
+  bloodType=c("A","B","B","O")
+)
+```
+
+```{r}
+df_example<-as.data.frame(example)
+example$name[c(T, F, T, F)]
+str(example[c("name","height")])
+pick_above170 <- example$height >= 170
+c(175, 166, 170, 160) >= 170
+example$name[pick_above170]
+```
+```{r}
+example$birthday
+class(example$birthday)
+typeof(example$birthday)
+print(example[c("name","birthday")])
+
+pick_after98 <- example$birthday >= lubridate::ymd("1998-01-01")
+example$name[pick_after98]
+```
+```{r}
+print(example[c("name","allowance")])
+class(example$allowance)
+levels(example$allowance)
+pick_allowanceOver1000 <- example$allowance >= "1001-2000"
+example$name[pick_allowanceOver1000]
+```
+```{r}
+example$allowance %in% c("1001-2000","2000+")
+```
+```{r}
+example$allowance <- 
+  ordered(example$allowance)
+```
+```{r}
+pick_allowanceOver1000 <- example$allowance >= "1001-2000"
+example$name[pick_allowanceOver1000]
+```
+
+```{r}
+print(example[c("name","bloodType")])
+
+pick_bloodB <- example$bloodType == "B"
+example$name[pick_bloodB]
+```
+```{r}
+sequenceNums <- c(11, 6, 8, 11, 12, 11, 3, 7, 10, 8)
+
+pick_evens <- (sequenceNums %% 2) == 0
+sequenceNums[pick_evens]
+```
+```{r}
+print(example[c("name","residence")])
+
+set_TaipeiMetro <- c("Taipei","New Taipei")
+pick_fromTaipeiMetro <- example$residence %in% set_TaipeiMetro
+example$name[pick_fromTaipeiMetro]
+```
+```{r}
+pick_not_fromTaipeiMetro <- ! pick_fromTaipeiMetro
+# 或
+pick_not_fromTaipeiMetro <- !(example$residence %in% set_TaipeiMetro) # (..) 裡面會先運算完才做外面!的處理
+pick_fromTaipeiMetro
+pick_not_fromTaipeiMetro
+```
+```{r}
+x2 <- c(1,NA,10)
+y2 <- c(-1,NA,20)
+
+x3 <- c(NA,"小花")
+y3 <- c(NA,"小華")
+```
+
+```{r}
+class(x2)
+is.na(x2)
+```
+```{r}
+print(example[c("name","weight")])
+
+pick_na <- is.na(example$weight)
+example$name[pick_na]
+```
+```{r}
+print(example[c("name","hobby")])
+
+pick_loveFood <- stringr::str_detect(example$hobby,"美食")
+example$name[pick_loveFood]
+```
+```{r}
+str(example)
+pick_above170 <- example$height >= 170
+pick_bloodB <- example$bloodType == "B"
+pick_loveFood <- 
+  stringr::str_detect(example$hobby,"美食")
+pick_na <- is.na(example$weight)
+pick_after98 <- 
+  example$birthday >= lubridate::ymd("1998-01-01")
+set_TaipeiMetro <- c("Taipei","New Taipei")
+pick_fromTaipeiMetro <- 
+  example$residence %in% set_TaipeiMetro
+```
+```{r}
+str(example[c("name","hobby","bloodType")])
+
+example$name[
+    pick_loveFood & pick_bloodB
+  ]
+```
+```{r}
+example$name[
+  pick_after98 & pick_fromTaipeiMetro & pick_bloodB
+]
+```
+```{r}
+set.seed(2020)
+ages_chr <- sample(c("4以下","5-10","11-15"), 15, replace=T)
+ages_chr
+```
+```{r}
+unique(ages_chr)
+table(ages_chr)
+```
+```{r}
+ages_fct1 <- 
+  factor(
+    ages_chr
+  )
+ages_fct1
+```
+```{r}
+table(ages_fct1)
+table(ages_chr)
+```
+```{r}
+ages_fct2 <- 
+  factor(
+    ages_chr,
+    levels = c("4以下","5-10","11-15")
+  )
+```
+```{r}
+
+```
+
+```{r}
+table(ages_fct1)
+table(ages_fct2)
+```
+```{r}
+ages_fct2[[3]] #4以下
+ages_fct2[[6]] #5-10
+ages_fct2[[3]] > ages_fct2[[6]]
+```
+```{r}
+ages_fct3 <- 
+  factor(
+    ages_chr,
+    levels = c("4以下","5-10","11-15"),
+    ordered = T
+  )
+```
+```{r}
+ages_fct3[[3]] #4以下
+ages_fct3[[6]] #5-10
+ages_fct3[[3]] > ages_fct3[[6]]
+ages_fct3[[6]] < "11-15" # 也可以用文字寫下levels中有的分類
+```
+```{r}
+
+```
+
