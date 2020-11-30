@@ -1,0 +1,209 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "selu"
+date: "2020-11-30"
+output: output_format
+params:
+  id: "410973065"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+
+```
+
+```{r}
+old_fct <- 
+  factor(c("4以下","5-10","11-15"))
+levels(old_fct)
+```
+```{r}
+levels(old_fct)<- c("青少年", "幼兒", "兒童")
+levels(old_fct)
+```
+```{r}
+set.seed(2018)
+gender<-sample(c("M","F"),10000,replace= T)
+gender_fac<-factor(gender)
+levels(gender_fac)
+```
+```{r}
+levels(gender_fac)<-c("女","男")
+levels(gender_fac)
+```
+```{r}
+set.seed(2020)
+ages_chr <- sample(c("4以下","5-9","10-14", "15-19"), 20, replace=T)
+ages_chr
+```
+```{r}
+ages_fctBy5 <- 
+  factor(
+    ages_chr,
+    levels = c("4以下","5-9","10-14", "15-19")
+  )
+
+levels(ages_fctBy5)
+table(ages_fctBy5)
+```
+```{r}
+levels(ages_fctBy5) <- c("10以下", "10以下", "10以上", "10以上")
+table(ages_fctBy5)
+ages_fctBy5
+```
+```{r}
+set.seed(2020)
+ages_chr <- sample(c("4以下","5-9","10-14", "15-19"), 10, replace=T)
+ages_chr
+```
+```{r}
+data_fct <- factor(ages_chr)
+length(data_fct)
+```
+```{r}
+data_fct[[11]] <- c("10-14")
+data_fct
+data_fct[c(12, 13)] <- c("5-9","15-19")
+data_fct
+```
+```{r}
+levels(data_fct) 
+data_fct[[14]] <- "20-24"
+data_fct[[14]]
+levels(data_fct)[[5]] <- "20-24"
+levels(data_fct)
+data_fct[[14]] <- "20-24"
+data_fct
+```
+```{r}
+ages_chr <- sample(c("5-9","10-14", "15-19"), 8, replace=T)
+data_fct <- factor(ages_chr,
+                   levels = c("5-9","10-14", "15-19"),
+                   ordered = T)
+# 新增類別
+levels(data_fct)[c(4, 5)] <- c("20-24", "4以下")
+# 新增資料
+data_fct[c(9, 10, 11, 12)] <- c("20-24", "10-14", "15-19", "4以下")
+# factor parsing修正排序
+data_fct <- factor(
+  data_fct,
+  levels = c("4以下", "5-9","10-14", "15-19", "20-24")
+)
+data_fct
+```
+
+```{r}
+# 非類別資料
+numVect <- c(2, 5, 7)
+# 新增c(6, 10)
+numVect <- c(numVect, c(6,10))
+numVect
+```
+```{r}
+# 類別資料
+fctVector <- factor(c("a","b", "c", "a"))
+# 新增 'a', 'c'
+fctVector
+fctVector <- c(fctVector, c('a','c'))
+fctVector
+```
+```{r}
+a <- c(Mary=178, Jack=165)
+attr(a, "family") <- "Johnson"
+attributes(a)
+
+b <- c(Ben=170, David=172)
+attr(b, "family") <- "Jenson"
+attributes(b)
+
+a_b <- c(a, b)
+attributes(a_b)
+```
+```{r}
+list_ab <- list(a, b)
+list_ab
+attributes(list_ab)
+attributes(a)
+attributes(b)
+```
+```{r}
+unlist_ab <- unlist(list_ab)
+unlist_ab
+attributes(unlist_ab)
+```
+```{r}
+fct_a <- factor(c('a','d','e'))
+fct_b <- factor(c("a","e","j"))
+
+fct_ab <- 
+  list(fct_a, fct_b)
+
+unlist(fct_ab)
+```
+```{r}
+library(stringr)
+library(glue)
+```
+```{r}
+thatsAlright <- 
+  jsonlite::fromJSON(
+    "https://www.dropbox.com/s/f3ox7rd5favr0o0/thatsAlright.json?dl=1"
+  )
+View(thatsAlright)
+```
+
+```{r}
+# 字串向量長度
+length(c("I will"))
+# 每個元素值有幾個字元(包含符號與空格)
+str_length(c("I will"))
+```
+```{r}
+# 字串向量長度
+length(thatsAlright)
+# 每個元素值有幾個字元
+str_length(thatsAlright)
+```
+```{r}
+line67 <- thatsAlright[c(6,7)]
+line67
+str_split(line67, ",")
+```
+```{r}
+# 'you'是否出現在第1,2,3,...最後一句
+pick_you <- str_detect(thatsAlright, pattern="you")
+pick_you
+str_view_all(thatsAlright[pick_you],"you")
+```
+```{r}
+# 哪幾句有'you'出現
+whichHas_you <- str_which(thatsAlright, pattern="you")
+whichHas_you
+str_view_all(thatsAlright[whichHas_you],"you")
+```
+```{r}
+# 只留下有出現'you'字眼的句子
+onlyYou <- str_subset(thatsAlright, pattern="you")
+
+length(thatsAlright)
+length(onlyYou)
+```
+
+```{r}
+# 每一句有幾個"you"
+countEach_you <- str_count(thatsAlright,
+                           pattern="you")
+countEach_you
+str_view_all(
+  thatsAlright[1:10], pattern="you")
+```
+```{r}
+str_view_all(
+  thatsAlright[1:10], pattern=patternWithBoundary)
+```
+
