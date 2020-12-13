@@ -81,14 +81,57 @@ list(
 ```{r ans81}
 githubResponse_reshape_X <- {
   contentX <- githubResponse[[1]]$content
-  
+  reshape<- list("id"= str_extract(contentX[1],pattern='[:digit:]{9}'),"questionLabel"=contentX[2])
 }
+print(githubResponse_reshape_X)
 # githubResponse_reshape_X
 ```
 
 #### 8.2 Apply to all
 ```{r ans82}
+library(purrr)
+githubResponse_reshape<-list({
+  contentX <- githubResponse[[1]]$content
+  reshape<- list("id"= str_extract(contentX[1],pattern='[:digit:]{9}'),"questionLabel"=contentX[2])
+},{
+  contentX <- githubResponse[[2]]$content
+  reshape<- list("id"= str_extract(contentX[1],pattern='[:digit:]{9}'),"questionLabel"=contentX[2])
+},{
+  contentX <- githubResponse[[3]]$content
+  reshape<- list("id"= str_extract(contentX[1],pattern='[:digit:]{9}'),"questionLabel"=contentX[2])
+},{
+  contentX <- githubResponse[[4]]$content
+  reshape<- list("id"= str_extract(contentX[1],pattern='[:digit:]{9}'),"questionLabel"=contentX[2])
+})
 ```
+```{r}
+# **githubResponse_reshape**,  
+## class is list
+is(githubResponse_reshape, "list")
+## length is 4
+length(githubResponse_reshape) == 4
+## for each element, 
+### element class is list 
+all(purrr::map_lgl(githubResponse_reshape,is.list))
+### length is 2 
+all(purrr::map_int(githubResponse_reshape,length) == 2)
+### **underneath element**
+#### element names are "id" and "questionLabel" 
+all(purrr::map_lgl(
+  githubResponse_reshape,
+  ~{all(names(.x)==c("id","questionLabel"))}))
+#### element classes have 
+###### id being character of 1, 
+###### questionLabel being character.
+all(purrr::map_lgl(
+  githubResponse_reshape,
+  ~{
+    is(.x[["id"]],"character") && length(.x[["id"]])==1 &&
+      is(.x[["questionLabel"]],"character") 
+  }
+))
+```
+
 
 #### 8.3 irregular pattern
 
@@ -98,11 +141,12 @@ Y <- sample(1:5,1)
 Z <- sample(6:9,1)
 irregularLabel_x <- paste0("ans",X, ".",Y,"-",Z)
 irregularLabel_x
+
 ```
 
 ```{r ans83}
 regularSequence <- 
-{
+{seq((10*X+Y),(10*X+Z))
   
 }
 # regularSequence
