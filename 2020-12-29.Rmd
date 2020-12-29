@@ -1,0 +1,150 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "selu"
+date: "2020-12-29"
+output: output_format
+params:
+  id: "410973065"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+# Given some information
+R <- 0.09
+M <- 10000
+T <- 3
+# What I need to do
+PDV <- 
+{
+  M/(1+R)**T
+}
+```
+
+```{r}
+getPDV <- function(R,M,T) 
+{
+  M/(1+R)**T
+}
+```
+
+```{r}
+getPDV(R=0.09, T=3, M=10000)
+```
+```{r}
+debug(getPDV) 
+getPDV(R=0.09, T=3, M=10000) 
+undebug(getPDV)
+```
+```{r}
+# 查詢函數formals arguments要求
+formals(getPDV)
+```
+```{r}
+# 查詢函數主體
+body(getPDV)
+```
+```{r}
+# body執行時若有物件不存在execution environment時要去找尋的environment
+environment(getPDV)
+```
+
+```{r}
+testFun <- function(){
+  a <-2
+  b <- 5
+  a+b
+}
+testFun()
+```
+```{r}
+body(testFun)
+```
+```{r}
+testErrorFun <- function(){
+  a <-2
+  b <- 5
+  output <- a+b
+}
+testErrorFun()
+```
+O
+```{r}
+testFun <- function(){
+  a <-2
+  b <- 5
+  return(a+b)
+}
+testFun()
+```
+```{r}
+demandFun <- function(P) 5-3*P
+supplyFun <- function(P) 1+0.5*P
+market <- list(
+  demand=demandFun,
+  supply=supplyFun
+)
+```
+
+```{r}
+df0 <- function(f){
+  epsilon <- 0.00001
+  (f(epsilon)-f(0))/epsilon
+}
+
+df0(market$demand)
+df0(market$supply)
+```
+```{r}
+library(lubridate); library(dplyr); library(stringr); library(purrr)
+jsonlite::fromJSON(
+"https://www.dropbox.com/s/8sftw4bbjumeqph/signMapping.json?dl=1") -> horoscopes
+```
+```{r}
+userBirthday <- ymd("1998-10-30")
+
+get_userHoroscopes <- function(userBirthday)
+  {
+    # 取得生日年份
+    birthYear <- {
+      year(userBirthday)
+    }
+    
+    # 取得生日年份的12星座起始日期
+    horoscopeStartingDateInBirthYear <- {
+      str_startingDate <- 
+        paste0(birthYear,"-",horoscopes$sdate)
+      ymd(str_startingDate)
+    }
+    
+    # 切割生日成為12星座區間
+    cutBirthdayByStartingDate <- {
+      cut(userBirthday,
+          breaks =
+            c(
+              ymd(
+                paste0(birthYear, "-01-01")
+              ),
+              horoscopeStartingDateInBirthYear,
+              Inf
+            )
+          )
+    }
+    
+    # 改變星座區間類別名稱
+    birthdayCutRenameLevels <- {
+      c("摩羯座", horoscopes$sign)
+    }
+    levels(cutBirthdayByStartingDate) <- birthdayCutRenameLevels
+    
+    as.character(cutBirthdayByStartingDate)
+}
+get_userHoroscopes(ymd("1995-08-27"))
+get_userHoroscopes(ymd("1970-05-18"))
+get_userHoroscopes(ymd("2001-4-1"))
+```
+
