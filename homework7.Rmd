@@ -41,25 +41,28 @@ jsonlite::fromJSON("https://www.dropbox.com/s/ttw2j7nitc35vfx/palaceMuseumPainti
 
 ```{r}
 get_painting_dynasty <- function(PaintingName){
-if(length(str_extract(PaintingName,"(?<=(：))[:graph:]*[唐宋元明清蜀]"))==1)
-  return({str_extract(PaintingName,"(?<=(：))[:graph:]*[唐宋元明清蜀]")})
+  #找到題目的位置
+  pick_paintName<- str_which(map(1:200,~{painting[[.x]][[1]][[2]]$Title}),PaintingName)
+  
+  get_painting_dynasty<-str_extract(painting[[pick_paintName]][[1]][[2]]$Title,"([唐宋元明清]|五代後蜀|五代南唐)")
+  return(get_painting_dynasty)
+
 }
-
-get_painting_dynasty("主要題名：五代後蜀滕昌祐蝶戲長春圖　卷")
+get_painting_dynasty(painting[[4]]$DACatalog$MetaDesc$Title)
 
 ```
-```{r}
-get_painting_dynasty(all_name)
-length(str_extract(all_name[[4]],"(?<=(：))[:graph:]*[唐宋元明清蜀]"))
-```
-
 
 #### 4.6 Subjects Identification{-}
 
 ```{r}
 get_painting_subjects <- function(PaintingName){
-  
+   pick_paintName<- str_which(map(1:200,~{painting[[.x]][[1]][[2]]$Title}),PaintingName)
+   pick_subject<-str_which(names(painting[[pick_paintName]][[1]][[2]]),"Subject")
+   subjects<-unlist(painting[[pick_paintName]][[1]][[2]][pick_subject])
+   painting_subjects <- str_replace(subjects,"作品內容：","")
+   return(painting_subjects)
 }
+get_painting_subjects(painting[[1]]$DACatalog$MetaDesc$Title)
 ```
 
 
@@ -67,16 +70,43 @@ get_painting_subjects <- function(PaintingName){
 
 ```{r}
 get_painting_withDS <- function(PaintingName){
+  pick_PaintingName <- str_which(map(1:200,~{painting[[.x]][[1]][[2]]$Title}),pattern = PaintingName)
+  painting_withDS <- list(
+    "Dynasty" = get_painting_dynasty(PaintingName),
+    "Title" = str_replace(PaintingName,"主要題名：",""),
+    "Id" = str_replace(painting[[pick_PaintingName]]$DACatalog$MetaDesc$Identifier,"作品號：",""),
+    "Subjects" = get_painting_subjects(PaintingName),
+    "Icon" = painting[[pick_PaintingName]]$DACatalog$AdminDesc$ICON
+  )
+  return(painting_withDS)
   
 }
+get_painting_withDS(painting[[1]]$DACatalog$MetaDesc$Title)
 ```
 
 #### 4.8 Guide to Dynasty-based Exhibition{-}
 
 ```{r}
 get_instruction <- function(PaintingName){
+    instruction <- if(get_painting_dynasty(PaintingName) == "清")
+  {
+    print("Please go to 4F")
+    }else
+      if(get_painting_dynasty(PaintingName) == "明")
+    {
+      print("Please go to 3F")
+    }else
+      if(get_painting_dynasty(PaintingName) == "宋")
+      {
+        print("Please go to 2F")
+      }else
+      {
+        print("Please ask our reception")
+      }
+  get_painting_withDS(PaintingName)
   
 }
+get_instruction(painting[[1]]$DACatalog$MetaDesc$Title)
 ```
 
 ### 5. 交友軟體改良{-}
