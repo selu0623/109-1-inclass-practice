@@ -1,0 +1,38 @@
+---
+title: "課?<a0>?練習模<e7><89><88>"
+author: "selu"
+date: "2021-01-06"
+output: output_format
+params:
+  id: "410973065"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Your code
+
+```{r}
+sortedEmails <- list(
+  office=character(),
+  student=character(),
+  private=character()
+)
+```
+```{r}
+set.seed(2839)
+emailFrom <- sample(
+  c("econ@gm.ntpu.edu.tw","classStudents@gm.ntpu.edu.tw","xxx@gmail.com","econStaff@gm.ntpu.edu.tw","yyyy@gmail.com"), 50,
+  replace=T
+)
+head(emailFrom, 10)
+```
+```{r}
+.x<- 3
+commingEmail <- emailFrom[[.x]]
+```
+```{r}
+
+```
+
